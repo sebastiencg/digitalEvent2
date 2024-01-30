@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_question_index') }}" class="btn btn-primary">
+        question
+    </a>
+    <a href="{{ path('app_response_of_question_index') }}" class="btn btn-primary">
+        response
+    </a>
+
+{% endblock %}
