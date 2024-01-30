@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ResponseOfQuestion index{% endblock %}
+
+{% block body %}
+    <h1>ResponseOfQuestion index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Response</th>
+                <th>IsTrue</th>
+                <th>Explication</th>
+                <th>Question</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for response_of_question in response_of_questions %}
+            <tr>
+                <td>{{ response_of_question.id }}</td>
+                <td>{{ response_of_question.valueResponse }}</td>
+                <td>{{ response_of_question.isTrue ? 'Yes' : 'No' }}</td>
+                <td>{{ response_of_question.explication }}</td>
+                <td>{{ response_of_question.response.question }}</td>
+                <td>
+                    <a href="{{ path('app_response_of_question_show', {'id': response_of_question.id}) }}">show</a>
+                    <a href="{{ path('app_response_of_question_edit', {'id': response_of_question.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_response_of_question_new') }}">Create new</a>
+{% endblock %}

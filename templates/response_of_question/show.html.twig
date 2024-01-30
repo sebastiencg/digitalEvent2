@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ResponseOfQuestion{% endblock %}
+
+{% block body %}
+    <h1>ResponseOfQuestion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ response_of_question.id }}</td>
+            </tr>
+            <tr>
+                <th>Response</th>
+                <td>{{ response_of_question.valueResponse }}</td>
+            </tr>
+            <tr>
+                <th>IsTrue</th>
+                <td>{{ response_of_question.isTrue ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Explication</th>
+                <td>{{ response_of_question.explication }}</td>
+            </tr>
+            <tr>
+                <th>Question</th>
+                <td>{{ response_of_question.response.question }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_response_of_question_index') }}">back to list</a>
+
+    <a href="{{ path('app_response_of_question_edit', {'id': response_of_question.id}) }}">edit</a>
+
+    {{ include('response_of_question/_delete_form.html.twig') }}
+{% endblock %}
