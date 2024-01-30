@@ -20,15 +20,21 @@ class Question
     private ?string $question = null;
 
 
-    #[ORM\Column]
-    private ?int $level = null;
+
 
     #[ORM\OneToMany(mappedBy: 'response', targetEntity: ResponseOfQuestion::class, orphanRemoval: true)]
     private Collection $responses;
 
+    #[ORM\Column]
+    private ?int $point = null;
+
+    #[ORM\ManyToMany(targetEntity: Party::class, mappedBy: 'Question')]
+    private Collection $parties;
+
     public function __construct()
     {
         $this->responses = new ArrayCollection();
+        $this->parties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -48,17 +54,7 @@ class Question
         return $this;
     }
 
-    public function getLevel(): ?int
-    {
-        return $this->level;
-    }
 
-    public function setLevel(int $level): static
-    {
-        $this->level = $level;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, ResponseOfQuestion>
@@ -85,6 +81,45 @@ class Question
             if ($response->getResponse() === $this) {
                 $response->setResponse(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getPoint(): ?int
+    {
+        return $this->point;
+    }
+
+    public function setPoint(int $point): static
+    {
+        $this->point = $point;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Party>
+     */
+    public function getParties(): Collection
+    {
+        return $this->parties;
+    }
+
+    public function addParty(Party $party): static
+    {
+        if (!$this->parties->contains($party)) {
+            $this->parties->add($party);
+            $party->addQuestion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParty(Party $party): static
+    {
+        if ($this->parties->removeElement($party)) {
+            $party->removeQuestion($this);
         }
 
         return $this;

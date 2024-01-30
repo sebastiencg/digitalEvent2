@@ -36,6 +36,8 @@
         {% endfor %}
         </tbody>
     </table>
-
+    <a href="{{ path('app_question_index') }}" class="btn btn-primary">
+        Question
+    </a>
     <a href="{{ path('app_response_of_question_new') }}">Create new</a>
 {% endblock %}

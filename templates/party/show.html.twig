@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}show{% endblock %}
+
+{% block body %}
+    <h1>Question</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ party.id }}</td>
+        </tr>
+        <tr>
+            <th>Question</th>
+            <td>{{ question.question }}</td>
+        </tr>
+
+        <tr>
+            <th>Point</th>
+            <td>{{ question.point }}</td>
+        </tr>
+        {% for response in question.responses %}
+            {% if response.isTrue %}
+                <tr>
+                    <th>Response True</th>
+                    <td>{{ response.valueResponse }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <th>Response False</th>
+                    <td>{{ response.valueResponse }}</td>
+                </tr>
+            {% endif %}
+
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_question_index') }}">back to list</a>
+
+    <a href="{{ path('app_question_edit', {'id': question.id}) }}">edit</a>
+
+    {{ include('question/_delete_form.html.twig') }}
+{% endblock %}

@@ -15,11 +15,11 @@ class QuestionType extends AbstractType
     {
         $builder
             ->add('question')
-            ->add('level', IntegerType::class, [
+            ->add('point', IntegerType::class, [
                 'constraints' => [
                     new Range([
                         'min' => 1,
-                        'max' => 5,
+                        'max' => 2,
                         'minMessage' => 'Le niveau doit être au moins {{ limit }}.',
                         'maxMessage' => 'Le niveau ne peut pas dépasser {{ limit }}.',
                     ]),
