@@ -5,10 +5,12 @@ namespace App\Entity;
 use App\Repository\ResponseOfQuestionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ResponseOfQuestionRepository::class)]
 class ResponseOfQuestion
 {
+    #[Groups(['game:read-one'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -17,13 +19,13 @@ class ResponseOfQuestion
     #[ORM\ManyToOne(inversedBy: 'responses')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Question $response = null;
-
+    #[Groups(['game:read-one'])]
     #[ORM\Column]
     private ?bool $isTrue = null;
-
+    #[Groups(['game:read-one'])]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $explication = null;
-
+    #[Groups(['game:read-one'])]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $valueResponse = null;
 
