@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use App\Entity\Party;
+use App\Entity\Point;
 use App\Form\PartyType;
 use App\Repository\QuestionRepository;
 use App\Repository\ResponseOfQuestionRepository;
@@ -26,12 +27,26 @@ class PartyController extends AbstractController
     #[Route('/make/', name: 'app_party_make')]
     public function makeParty(QuestionRepository $questionRepository, SessionManager $sessionManager, ServiceQuestion $serviceQuestion,EntityManagerInterface $entityManager): Response
     {
+        $participants=$sessionManager->getSession('user');
+
+        if (is_array($participants) && count($participants) <= 1) {
+            $sessionManager->clearSession();
+            return $this->redirectToRoute('app_party', [], Response::HTTP_SEE_OTHER);
+        }
         $allQuestions = $questionRepository->findAll();
         $questions = $serviceQuestion->Take10Question($allQuestions);
+
         $party=new Party();
-        $participants=$sessionManager->getSession('user');
         foreach ($participants as $participant){
+
+            $point= new Point();
+            $point->setUsername($participant);
+            $point->setPoint(0);
+            $participant->setPoint($point);
+
             $party->addParticipant($participant);
+
+            $entityManager->persist($point);
             $entityManager->persist($participant);
         }
         foreach ($questions as $question){
@@ -45,7 +60,18 @@ class PartyController extends AbstractController
     #[Route('/start/{id}', name: 'app_party_startGame')]
     public function startGame(Party $party): Response
     {
-        dd($party);
+        dd($party->getParticipant()->getValues(),$party->getQuestion()->getValues());
+        return $this->json($party->getQuestion()->getValues(),Response::HTTP_OK);
+
+        return $this->render('party/show.html.twig',[
+            "party"=>$party
+        ] );
+    }
+    #[Route('/test/{id}', name: 'app_party_dataJson')]
+    public function dataJson(Party $party): Response
+    {
+        return $this->json($party,Response::HTTP_OK,[],['groups'=>'game:read-one']);
+
         return $this->render('party/show.html.twig',[
             "party"=>$party
         ] );

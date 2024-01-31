@@ -6,18 +6,20 @@ use App\Repository\ParticipantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
 class Participant
 {
+    #[Groups(['game:read-one'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
+    #[Groups(['game:read-one'])]
     #[ORM\Column(length: 255)]
     private ?string $username = null;
-
+    #[Groups(['game:read-one'])]
     #[ORM\OneToOne(mappedBy: 'username', cascade: ['persist', 'remove'])]
     private ?Point $point = null;
 
