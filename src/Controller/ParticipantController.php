@@ -32,14 +32,9 @@ class ParticipantController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $point= new Point();
-            $point->setUsername($participant);
-            $point->setPoint(0);
-            $participant->setPoint($point);
-            $entityManager->persist($point);
-            $entityManager->persist($participant);
-            $entityManager->flush();
+
             $sessionManager->createSession("user",$participant);
+
             return $this->redirectToRoute('app_participant_new_second', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -63,12 +58,6 @@ class ParticipantController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $point= new Point();
-            $point->setUsername($participant);
-            $point->setPoint(0);
-            $entityManager->persist($point);
-            $entityManager->persist($participant);
-            $entityManager->flush();
             $sessionManager->createSession("user",$participant);
             return $this->redirectToRoute('app_participant_new_third', [], Response::HTTP_SEE_OTHER);
         }
@@ -91,18 +80,13 @@ class ParticipantController extends AbstractController
         $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $point= new Point();
-            $point->setUsername($participant);
-            $point->setPoint(0);
-            $entityManager->persist($point);
-            $entityManager->persist($participant);
-            $entityManager->flush();
             $sessionManager->createSession("user",$participant);
             return $this->redirectToRoute('app_party_make', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('participant/new.html.twig', [
             'participant' => $participant,
             'form' => $form,
+            'onlyToo'=>true
         ]);
     }
 }

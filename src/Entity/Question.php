@@ -7,29 +7,32 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 class Question
 {
+    #[Groups(['game:read-one'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
+    #[Groups(['game:read-one'])]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $question = null;
 
-
-
-
+    #[Groups(['game:read-one'])]
     #[ORM\OneToMany(mappedBy: 'response', targetEntity: ResponseOfQuestion::class, orphanRemoval: true)]
     private Collection $responses;
-
+    #[Groups(['game:read-one'])]
     #[ORM\Column]
     private ?int $point = null;
 
     #[ORM\ManyToMany(targetEntity: Party::class, mappedBy: 'Question')]
     private Collection $parties;
+
+    #[ORM\ManyToOne(inversedBy: 'question')]
+    private ?Category $category = null;
 
     public function __construct()
     {
@@ -124,4 +127,18 @@ class Question
 
         return $this;
     }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+
 }

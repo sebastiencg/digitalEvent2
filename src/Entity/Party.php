@@ -6,18 +6,20 @@ use App\Repository\PartyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: PartyRepository::class)]
 class Party
 {
+    #[Groups(['game:read-one'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
+    #[Groups(['game:read-one'])]
     #[ORM\ManyToMany(targetEntity: Question::class, inversedBy: 'parties')]
     private Collection $Question;
-
+    #[Groups(['game:read-one'])]
     #[ORM\OneToMany(mappedBy: 'party', targetEntity: Participant::class)]
     private Collection $participant;
 
