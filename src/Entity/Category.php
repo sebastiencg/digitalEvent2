@@ -19,11 +19,11 @@ class Category
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Question::class)]
-    private Collection $questions;
+    private Collection $question;
 
     public function __construct()
     {
-        $this->questions = new ArrayCollection();
+        $this->question = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -46,15 +46,15 @@ class Category
     /**
      * @return Collection<int, Question>
      */
-    public function getQuestions(): Collection
+    public function getQuestion(): Collection
     {
-        return $this->questions;
+        return $this->question;
     }
 
     public function addQuestion(Question $question): static
     {
-        if (!$this->questions->contains($question)) {
-            $this->questions->add($question);
+        if (!$this->question->contains($question)) {
+            $this->question->add($question);
             $question->setCategory($this);
         }
 
@@ -63,7 +63,7 @@ class Category
 
     public function removeQuestion(Question $question): static
     {
-        if ($this->questions->removeElement($question)) {
+        if ($this->question->removeElement($question)) {
             // set the owning side to null (unless already changed)
             if ($question->getCategory() === $this) {
                 $question->setCategory(null);
