@@ -6,6 +6,7 @@ use App\Entity\Participant;
 use App\Entity\Party;
 use App\Entity\Point;
 use App\Form\PartyType;
+use App\Repository\CategoryRepository;
 use App\Repository\QuestionRepository;
 use App\Repository\ResponseOfQuestionRepository;
 use App\Service\SessionManager;
@@ -25,7 +26,7 @@ class PartyController extends AbstractController
     }
 
     #[Route('/make/', name: 'app_party_make')]
-    public function makeParty(QuestionRepository $questionRepository, SessionManager $sessionManager, ServiceQuestion $serviceQuestion,EntityManagerInterface $entityManager): Response
+    public function makeParty(CategoryRepository $categoryRepository, SessionManager $sessionManager, ServiceQuestion $serviceQuestion,EntityManagerInterface $entityManager): Response
     {
         $participants=$sessionManager->getSession('user');
 
@@ -33,8 +34,8 @@ class PartyController extends AbstractController
             $sessionManager->clearSession();
             return $this->redirectToRoute('app_party', [], Response::HTTP_SEE_OTHER);
         }
-        $allQuestions = $questionRepository->findAll();
-        $questions = $serviceQuestion->Take10Question($allQuestions);
+        $categories = $categoryRepository->findAll();
+        $questions = $serviceQuestion->getRandomQuestionsByCategory($categories);
 
         $party=new Party();
         foreach ($participants as $participant){
@@ -50,7 +51,7 @@ class PartyController extends AbstractController
             $entityManager->persist($participant);
         }
         foreach ($questions as $question){
-            $party->addQuestion($question);
+            $party->addQuestion($question[0]);
         }
         $entityManager->persist($party);
         $entityManager->flush();
@@ -67,12 +68,20 @@ class PartyController extends AbstractController
             "party"=>$party
         ] );
     }
-    #[Route('/test/{id}', name: 'app_party_dataJson')]
+    #[Route('/{id}/json', name: 'app_party_dataJson')]
     public function dataJson(Party $party): Response
     {
         return $this->json($party,Response::HTTP_OK,[],['groups'=>'game:read-one']);
 
         return $this->render('party/show.html.twig',[
+            "party"=>$party
+        ] );
+    }
+    #[Route('/test2/{id}', name: 'app_party_dataJso')]
+    public function hhhh(Party $party): Response
+    {
+
+        return $this->render('party/score.html.twig',[
             "party"=>$party
         ] );
     }
