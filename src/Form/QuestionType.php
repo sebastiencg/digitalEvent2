@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Question;
+use App\Entity\Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -19,6 +20,10 @@ class QuestionType extends AbstractType
             ->add('question')
             ->add('category', EntityType::class,[
                 'class'=>Category::class,
+                'choice_label'=>'name'
+            ])
+            ->add('type', EntityType::class,[
+                'class'=>Type::class,
                 'choice_label'=>'name'
             ])
             ->add('point', IntegerType::class, [

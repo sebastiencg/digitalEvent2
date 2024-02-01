@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PointRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: PointRepository::class)]
 class Point
@@ -13,6 +14,7 @@ class Point
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['game:read-one'])]
     #[ORM\Column]
     private ?int $point = null;
 

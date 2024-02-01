@@ -31,8 +31,13 @@ class Question
     #[ORM\ManyToMany(targetEntity: Party::class, mappedBy: 'Question')]
     private Collection $parties;
 
-    #[ORM\ManyToOne(inversedBy: 'question')]
+    #[Groups(['game:read-one'])]
+    #[ORM\ManyToOne(inversedBy: 'questions')]
     private ?Category $category = null;
+
+    #[Groups(['game:read-one'])]
+    #[ORM\ManyToOne(inversedBy: 'questions')]
+    private ?Type $type = null;
 
     public function __construct()
     {
@@ -136,6 +141,18 @@ class Question
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }
