@@ -39,6 +39,9 @@ class Question
     #[ORM\ManyToOne(inversedBy: 'questions')]
     private ?Type $type = null;
 
+    #[ORM\ManyToOne(inversedBy: 'question')]
+    private ?Draw $draw = null;
+
     public function __construct()
     {
         $this->responses = new ArrayCollection();
@@ -153,6 +156,18 @@ class Question
     public function setType(?Type $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getDraw(): ?Draw
+    {
+        return $this->draw;
+    }
+
+    public function setDraw(?Draw $draw): static
+    {
+        $this->draw = $draw;
 
         return $this;
     }

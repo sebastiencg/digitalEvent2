@@ -3,7 +3,8 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="App\" />
-      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/mercure/src" isTestSource="false" packagePrefix="App\" />
+      <sourceFolder url="file://$MODULE_DIR$/mercure/tests" isTestSource="true" packagePrefix="App\Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="App\Tests\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />
@@ -136,6 +137,41 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/extra-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/twig" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/psr/container" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/psr/event-dispatcher" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/cache-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/config" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/console" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/dependency-injection" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/deprecation-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/dotenv" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/error-handler" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/event-dispatcher" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/event-dispatcher-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/filesystem" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/finder" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/flex" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/framework-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/http-foundation" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/http-kernel" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/polyfill-intl-grapheme" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/polyfill-intl-normalizer" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/polyfill-php83" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/routing" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/runtime" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/service-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/string" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/var-dumper" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/var-exporter" />
+      <excludeFolder url="file://$MODULE_DIR$/mercure/vendor/symfony/yaml" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/lcobucci/jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/mercure" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/mercure-bundle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

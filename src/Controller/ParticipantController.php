@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
+use App\Entity\ParticipantOfDraw;
+use App\Entity\Party;
 use App\Entity\Point;
 use App\Form\ParticipantType;
 use App\Repository\ParticipantRepository;
@@ -81,7 +83,7 @@ class ParticipantController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $sessionManager->createSession("user",$participant);
-            return $this->redirectToRoute('app_party_make', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_participant_game', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('participant/new.html.twig', [
             'participant' => $participant,
@@ -89,4 +91,27 @@ class ParticipantController extends AbstractController
             'onlyToo'=>true
         ]);
     }
+    #[Route('/make', name: 'app_participant_game', methods: ['GET', 'POST'])]
+    public function parti(Request $request, EntityManagerInterface $entityManager,SessionManager $sessionManager): Response
+    {
+        $participants = $sessionManager->getSession('user');
+        $participantOfDraw = new  ParticipantOfDraw();
+        foreach ($participants as $participant) {
+
+            $point = new Point();
+            $point->setUsername($participant);
+            $point->setPoint(0);
+            $participant->setPoint($point);
+
+            $participantOfDraw->addParticipantOfDraw($participant);
+
+            $entityManager->persist($point);
+            $entityManager->persist($participant);
+        }
+        $entityManager->persist($participantOfDraw);
+        $entityManager->flush();
+        return $this->json(["ok"],Response::HTTP_OK);
+    }
+
+
 }

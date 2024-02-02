@@ -26,6 +26,9 @@ class Participant
     #[ORM\ManyToOne(inversedBy: 'participant')]
     private ?Party $party = null;
 
+    #[ORM\ManyToOne(inversedBy: 'participantOfDraw')]
+    private ?ParticipantOfDraw $participantOfDraw = null;
+
 
 
     public function __construct()
@@ -87,4 +90,17 @@ class Participant
 
         return $this;
     }
+
+    public function getParticipantOfDraw(): ?ParticipantOfDraw
+    {
+        return $this->participantOfDraw;
+    }
+
+    public function setParticipantOfDraw(?ParticipantOfDraw $participantOfDraw): static
+    {
+        $this->participantOfDraw = $participantOfDraw;
+
+        return $this;
+    }
+
 }
