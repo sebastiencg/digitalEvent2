@@ -17,53 +17,21 @@ class ParticipantOfDraw
     private ?int $id = null;
 
     #[Groups(['game:read-one'])]
-    #[ORM\OneToMany(mappedBy: 'participantOfDraw', targetEntity: Participant::class)]
-    private Collection $participantOfDraw;
-
-    #[Groups(['game:read-one'])]
     #[ORM\ManyToOne(inversedBy: 'participantOfDraws')]
     private ?Draw $draw = null;
 
+    #[ORM\ManyToMany(targetEntity: Participant::class, inversedBy: 'participantOfDraws')]
+    private Collection $participant;
+
     public function __construct()
     {
-        $this->participantOfDraw = new ArrayCollection();
+        $this->participant = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
     }
-
-    /**
-     * @return Collection<int, Participant>
-     */
-    public function getParticipantOfDraw(): Collection
-    {
-        return $this->participantOfDraw;
-    }
-
-    public function addParticipantOfDraw(Participant $participantOfDraw): static
-    {
-        if (!$this->participantOfDraw->contains($participantOfDraw)) {
-            $this->participantOfDraw->add($participantOfDraw);
-            $participantOfDraw->setParticipantOfDraw($this);
-        }
-
-        return $this;
-    }
-
-    public function removeParticipantOfDraw(Participant $participantOfDraw): static
-    {
-        if ($this->participantOfDraw->removeElement($participantOfDraw)) {
-            // set the owning side to null (unless already changed)
-            if ($participantOfDraw->getParticipantOfDraw() === $this) {
-                $participantOfDraw->setParticipantOfDraw(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getDraw(): ?Draw
     {
         return $this->draw;
@@ -72,6 +40,30 @@ class ParticipantOfDraw
     public function setDraw(?Draw $draw): static
     {
         $this->draw = $draw;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Participant>
+     */
+    public function getParticipant(): Collection
+    {
+        return $this->participant;
+    }
+
+    public function addParticipant(Participant $participant): static
+    {
+        if (!$this->participant->contains($participant)) {
+            $this->participant->add($participant);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(Participant $participant): static
+    {
+        $this->participant->removeElement($participant);
 
         return $this;
     }

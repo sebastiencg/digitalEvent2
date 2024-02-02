@@ -26,14 +26,17 @@ class Participant
     #[ORM\ManyToOne(inversedBy: 'participant')]
     private ?Party $party = null;
 
-    #[ORM\ManyToOne(inversedBy: 'participantOfDraw')]
-    private ?ParticipantOfDraw $participantOfDraw = null;
+    #[ORM\ManyToMany(targetEntity: ParticipantOfDraw::class, mappedBy: 'participant')]
+    private Collection $participantOfDraws;
+
+
 
 
 
     public function __construct()
     {
         $this->parties = new ArrayCollection();
+        $this->participantOfDraws = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,14 +94,29 @@ class Participant
         return $this;
     }
 
-    public function getParticipantOfDraw(): ?ParticipantOfDraw
+    /**
+     * @return Collection<int, ParticipantOfDraw>
+     */
+    public function getParticipantOfDraws(): Collection
     {
-        return $this->participantOfDraw;
+        return $this->participantOfDraws;
     }
 
-    public function setParticipantOfDraw(?ParticipantOfDraw $participantOfDraw): static
+    public function addParticipantOfDraw(ParticipantOfDraw $participantOfDraw): static
     {
-        $this->participantOfDraw = $participantOfDraw;
+        if (!$this->participantOfDraws->contains($participantOfDraw)) {
+            $this->participantOfDraws->add($participantOfDraw);
+            $participantOfDraw->addParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipantOfDraw(ParticipantOfDraw $participantOfDraw): static
+    {
+        if ($this->participantOfDraws->removeElement($participantOfDraw)) {
+            $participantOfDraw->removeParticipant($this);
+        }
 
         return $this;
     }

@@ -10,6 +10,7 @@ use App\Form\ParticipantType;
 use App\Repository\ParticipantRepository;
 use App\Service\SessionManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -111,6 +112,42 @@ class ParticipantController extends AbstractController
         $entityManager->persist($participantOfDraw);
         $entityManager->flush();
         return $this->json(["ok"],Response::HTTP_OK);
+    }
+//______________________________________________________________________________________
+    #[Route('/new', name: 'app_participant_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager,SessionManager $sessionManager): Response
+    {
+        $participant = new Participant();
+        $form = $this->createForm(ParticipantType::class, $participant);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($participant);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('participant/new.html.twig', [
+            'participant' => $participant,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{userId1}/{userId2}/{userId3}', name: 'app_participant_userOfGame', methods: ['GET', 'POST'])]
+    public function userOfGame(
+        #[MapEntity(id: 'userId1')] Participant $participant1,
+        #[MapEntity(id: 'userId2')] Participant $participant2,
+        #[MapEntity(id: 'userId3')] Participant $participant3,
+        Request $request, EntityManagerInterface $entityManager,SessionManager $sessionManager): Response
+    {
+        $participantOfDraw = new  ParticipantOfDraw();
+        $participantOfDraw->addParticipant($participant1);
+        $participantOfDraw->addParticipant($participant1);
+        $participantOfDraw->addParticipant($participant1);
+        $entityManager->persist($participantOfDraw);
+        $entityManager->flush();
+        return $this->json(["ok"],Response::HTTP_OK);
+
     }
 
 
