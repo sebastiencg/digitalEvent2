@@ -132,7 +132,7 @@ class ParticipantController extends AbstractController
             'form' => $form,
         ]);
     }
-    #[Route('/new', name: 'app_participant_index', methods: ['GET', 'POST'])]
+    #[Route('/all', name: 'app_participant_index', methods: ['GET', 'POST'])]
     public function index(ParticipantRepository $participantRepository): Response
     {
 
@@ -150,8 +150,8 @@ class ParticipantController extends AbstractController
     {
         $participantOfDraw = new  ParticipantOfDraw();
         $participantOfDraw->addParticipant($participant1);
-        $participantOfDraw->addParticipant($participant1);
-        $participantOfDraw->addParticipant($participant1);
+        $participantOfDraw->addParticipant($participant2);
+        $participantOfDraw->addParticipant($participant3);
         $entityManager->persist($participantOfDraw);
         $entityManager->flush();
         return $this->json(["ok"],Response::HTTP_OK);
