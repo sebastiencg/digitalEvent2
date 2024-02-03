@@ -34,11 +34,22 @@ class PointController extends AbstractController
     public function score(ParticipantOfDrawRepository $participantOfDrawRepository): Response
     {
         $lastParticipantOfDraw = $participantOfDrawRepository->findOneBy([], ['id' => 'DESC']);
-        $score=[];
-        foreach ($lastParticipantOfDraw->getParticipant() as $participant){
-            $score[] = $participant;
+        $score = [];
+
+        foreach ($lastParticipantOfDraw->getParticipant() as $participant) {
+            $score[] = [
+                'point' => $participant->getPoint(),
+                'participant' => $participant,
+            ];
         }
-        return $this->json($score, Response::HTTP_OK, [], ['groups' => 'game:read-one']);
+
+        usort($score, function ($a, $b) {
+            return $b['point'] - $a['point'];
+        });
+
+        $sortedScores = array_column($score, 'point');
+
+        return $this->json($sortedScores, Response::HTTP_OK, [], ['groups' => 'game:read-one']);
 
     }
 }
