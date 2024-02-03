@@ -36,7 +36,7 @@ class PointController extends AbstractController
         $lastParticipantOfDraw = $participantOfDrawRepository->findOneBy([], ['id' => 'DESC']);
         $score=[];
         foreach ($lastParticipantOfDraw->getParticipant() as $participant){
-            $score[] = $participant->getPoint();
+            $score[] = $participant;
         }
         return $this->json($score, Response::HTTP_OK, [], ['groups' => 'game:read-one']);
 
