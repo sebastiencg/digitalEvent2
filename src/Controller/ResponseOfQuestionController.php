@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/response')]
 class ResponseOfQuestionController extends AbstractController
 {
-    #[Route('/', name: 'app_response_of_question_index', methods: ['GET'])]
+    #[Route('', name: 'app_response_of_question_index', methods: ['GET'])]
     public function index(ResponseOfQuestionRepository $responseOfQuestionRepository): Response
     {
         return $this->render('response_of_question/index.html.twig', [

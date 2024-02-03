@@ -18,7 +18,7 @@ class Draw
     #[Groups(['game:read-one'])]
     #[ORM\OneToMany(mappedBy: 'draw', targetEntity: Question::class)]
     private Collection $question;
-
+    #[Groups(['game:read-one'])]
     #[ORM\OneToMany(mappedBy: 'draw', targetEntity: ParticipantOfDraw::class)]
     private Collection $participantOfDraws;
 

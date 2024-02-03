@@ -16,10 +16,10 @@ class ParticipantOfDraw
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups(['game:read-one'])]
     #[ORM\ManyToOne(inversedBy: 'participantOfDraws')]
     private ?Draw $draw = null;
 
+    #[Groups(['game:read-one'])]
     #[ORM\ManyToMany(targetEntity: Participant::class, inversedBy: 'participantOfDraws')]
     private Collection $participant;
 

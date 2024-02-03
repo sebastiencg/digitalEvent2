@@ -132,6 +132,14 @@ class ParticipantController extends AbstractController
             'form' => $form,
         ]);
     }
+    #[Route('/new', name: 'app_participant_index', methods: ['GET', 'POST'])]
+    public function index(ParticipantRepository $participantRepository): Response
+    {
+
+        return $this->render('participant/index.html.twig', [
+            'participants' => $participantRepository->findAll()
+        ]);
+    }
 
     #[Route('/{userId1}/{userId2}/{userId3}', name: 'app_participant_userOfGame', methods: ['GET', 'POST'])]
     public function userOfGame(
