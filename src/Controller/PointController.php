@@ -39,17 +39,19 @@ class PointController extends AbstractController
         foreach ($lastParticipantOfDraw->getParticipant() as $participant) {
             $score[] = [
                 'point' => $participant->getPoint(),
-                'participant' => $participant,
+                'participant' => [
+                    'id' => $participant->getId(),
+                    'name' => $participant->getUsername(),
+                ],
             ];
         }
 
+// Tri du tableau $score par points dans l'ordre décroissant
         usort($score, function ($a, $b) {
             return $b['point'] - $a['point'];
         });
 
-        $sortedScores = array_column($score, 'point');
-
-        return $this->json($sortedScores, Response::HTTP_OK, [], ['groups' => 'game:read-one']);
+        return $this->json($score, Response::HTTP_OK, [], ['groups' => 'game:read-one']);
 
     }
 }
