@@ -122,9 +122,13 @@ class ParticipantController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $point= new Point();
+            $point->setPoint(0);
+            $participant->setPoint($point);
+            $entityManager->persist($point);
             $entityManager->persist($participant);
             $entityManager->flush();
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('participant/new.html.twig', [
@@ -148,6 +152,14 @@ class ParticipantController extends AbstractController
         #[MapEntity(id: 'userId3')] Participant $participant3,
         Request $request, EntityManagerInterface $entityManager,SessionManager $sessionManager): Response
     {
+        if ($participant1->getPoint() || $participant2->getPoint() || $participant3->getPoint()){
+        $point= $participant1->getPoint();
+        $point->setPoint(0);
+        $point= $participant2->getPoint();
+        $point->setPoint(0);
+        $point= $participant3->getPoint();
+        $point->setPoint(0);
+    }
         $participantOfDraw = new  ParticipantOfDraw();
         $participantOfDraw->addParticipant($participant1);
         $participantOfDraw->addParticipant($participant2);
