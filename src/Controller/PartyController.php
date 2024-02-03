@@ -100,9 +100,9 @@ class PartyController extends AbstractController
     }
 */
     #[Route('/start/last', name: 'app_party_lastGame')]
-    public function lastGame(DrawRepository $partyRepository): Response
+    public function lastGame(ParticipantOfDrawRepository $participantOfDrawRepository): Response
     {
-        $lastParty = $partyRepository->findOneBy([], ['id' => 'DESC']);
+        $lastParty = $participantOfDrawRepository->findOneBy([], ['id' => 'DESC']);
 
         if (!$lastParty) {
             throw $this->createNotFoundException('Aucune partie trouvée.');
