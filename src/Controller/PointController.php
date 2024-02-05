@@ -31,8 +31,8 @@ class PointController extends AbstractController
         $entityManager->persist($participant);
 
         $entityManager->flush();
+        return $this->json($participant, Response::HTTP_OK, [], ['groups' => 'game:read-one']);
 
-        return $this->json($participant->getPoint(),Response::HTTP_OK);
     }
 
     #[Route('/score/', name: 'app_score')]
