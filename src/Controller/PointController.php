@@ -32,7 +32,7 @@ class PointController extends AbstractController
 
         $entityManager->flush();
 
-        return $this->json("ok",Response::HTTP_OK);
+        return $this->json($point,Response::HTTP_OK);
     }
 
     #[Route('/score/', name: 'app_score')]
