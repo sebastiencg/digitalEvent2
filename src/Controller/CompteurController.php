@@ -54,4 +54,44 @@ class CompteurController extends AbstractController
 
         return $this->json($compter,Response::HTTP_OK);
     }
+    #[Route('/compteur/{id}/responseVisible', name: 'app_compteur_responseVisible')]
+    public function responseVisible(Compter $compter ,EntityManagerInterface $entityManager): Response
+    {
+
+        $compter->setIsResponseVisible(true);
+        $entityManager->persist($compter);
+        $entityManager->flush();
+
+        return $this->json($compter,Response::HTTP_OK);
+    }
+    #[Route('/compteur/{id}/responseNoVisible', name: 'app_compteur_responseNoVisible')]
+    public function responseNoVisible(Compter $compter ,EntityManagerInterface $entityManager): Response
+    {
+
+        $compter->setIsResponseVisible(false);
+        $entityManager->persist($compter);
+        $entityManager->flush();
+
+        return $this->json($compter,Response::HTTP_OK);
+    }
+    #[Route('/compteur/{id}/explicationVisible', name: 'app_compteur_explicationVisible')]
+    public function explicationVisible(Compter $compter ,EntityManagerInterface $entityManager): Response
+    {
+
+        $compter->setIsExplicationVisible(true);
+        $entityManager->persist($compter);
+        $entityManager->flush();
+
+        return $this->json($compter,Response::HTTP_OK);
+    }
+    #[Route('/compteur/{id}/explicationNoVisible', name: 'app_compteur_explicationNoVisible')]
+    public function explicationNoVisible(Compter $compter ,EntityManagerInterface $entityManager): Response
+    {
+
+        $compter->setIsExplicationVisible(false);
+        $entityManager->persist($compter);
+        $entityManager->flush();
+
+        return $this->json($compter,Response::HTTP_OK);
+    }
 }

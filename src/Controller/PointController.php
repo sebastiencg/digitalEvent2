@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use App\Entity\ParticipantOfDraw;
+use App\Entity\Point;
 use App\Entity\Question;
 use App\Repository\ParticipantOfDrawRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,11 +23,17 @@ class PointController extends AbstractController
     {
         if(!$participant->getPoint()){
             $point=$question->getPoint();
+            $newPoint= new Point();
+            $newPoint->setPoint($point);
+            $participant->setPoint($newPoint);
+            $entityManager->persist($newPoint);
+
         }
         else{
             $point = $participant->getPoint()->getPoint() + $question->getPoint();
+            $participant->getPoint()->setPoint($point);
+
         }
-        $participant->getPoint()->setPoint($point);
 
         $entityManager->persist($participant);
 
