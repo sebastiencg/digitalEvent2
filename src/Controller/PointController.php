@@ -14,13 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PointController extends AbstractController
 {
-    #[Route('/point/question/{QuestionId}/user/{userId}', name: 'app_point_one_point')]
+    #[Route('/point/question/{QuestionId}/user/{userId}', name: 'app_point_one_point', methods: ['GET']),]
     public function addOnePoint(
         #[MapEntity(id: 'QuestionId')] Question $question,
         #[MapEntity(id: 'userId')] Participant $participant,
         EntityManagerInterface $entityManager): Response
     {
-        if($participant->getPoint()->getPoint()== null){
+        if($participant->getPoint()->getPoint()){
             $point=$question->getPoint();
         }
         else{
