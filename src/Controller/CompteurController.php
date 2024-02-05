@@ -17,6 +17,8 @@ class CompteurController extends AbstractController
     {
         $compteur= new Compter();
         $compteur->setCompteur(0);
+        $compteur->setIsExplicationVisible(false);
+        $compteur->setIsResponseVisible(false);
         $entityManager->persist($compteur);
         $entityManager->flush();
         return $this->json($compteur,Response::HTTP_OK);

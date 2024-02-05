@@ -16,6 +16,13 @@ class Compter
     #[ORM\Column]
     private ?int $compteur = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isResponseVisible = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isExplicationVisible = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -32,4 +39,30 @@ class Compter
 
         return $this;
     }
+
+    public function isIsResponseVisible(): ?bool
+    {
+        return $this->isResponseVisible;
+    }
+
+    public function setIsResponseVisible(?bool $isResponseVisible): static
+    {
+        $this->isResponseVisible = $isResponseVisible;
+
+        return $this;
+    }
+
+    public function isIsExplicationVisible(): ?bool
+    {
+        return $this->isExplicationVisible;
+    }
+
+    public function setIsExplicationVisible(?bool $isExplicationVisible): static
+    {
+        $this->isExplicationVisible = $isExplicationVisible;
+
+        return $this;
+    }
+
+
 }
