@@ -11,6 +11,8 @@
                 <th>Id</th>
                 <th>Username</th>
                 <th>actions</th>
+                <th>point</th>
+
             </tr>
         </thead>
         <tbody>
@@ -18,6 +20,7 @@
             <tr>
                 <td>{{ participant.id }}</td>
                 <td>{{ participant.username }}</td>
+                <td>{{ participant.point.point }}</td>
 
             </tr>
         {% else %}
