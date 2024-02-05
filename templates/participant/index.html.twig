@@ -18,10 +18,7 @@
             <tr>
                 <td>{{ participant.id }}</td>
                 <td>{{ participant.username }}</td>
-                <td>
-                    <a href="{{ path('app_participant_show', {'id': participant.id}) }}">show</a>
-                    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">edit</a>
-                </td>
+
             </tr>
         {% else %}
             <tr>
