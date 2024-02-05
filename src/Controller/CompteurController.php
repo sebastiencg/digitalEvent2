@@ -35,7 +35,7 @@ class CompteurController extends AbstractController
     #[Route('/compteur/{id}/up', name: 'app_compteur_up')]
     public function upCompter(Compter $compter ,EntityManagerInterface $entityManager): Response
     {
-        $compter->setCompteur(1);
+        $compter->setCompteur($compter->getCompteur()+1);
 
         $entityManager->persist($compter);
         $entityManager->flush();
