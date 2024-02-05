@@ -20,7 +20,12 @@ class PointController extends AbstractController
         #[MapEntity(id: 'userId')] Participant $participant,
         EntityManagerInterface $entityManager): Response
     {
-        $point = $participant->getPoint()->getPoint() + $question->getPoint();
+        if($participant->getPoint()->getPoint()== null){
+            $point=$question->getPoint();
+        }
+        else{
+            $point = $participant->getPoint()->getPoint() + $question->getPoint();
+        }
         $participant->getPoint()->setPoint($point);
 
         $entityManager->persist($participant);
