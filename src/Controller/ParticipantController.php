@@ -169,7 +169,7 @@ class ParticipantController extends AbstractController
         return $this->json(["ok"],Response::HTTP_OK);
 
     }
-    #[Route('/{id}', name: 'app_participant_delete', methods: ['DELETE'])]
+    #[Route('/delete/{id}', name: 'app_participant_delete', methods: ['DELETE'])]
     public function delete(Request $request, Participant $participant, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$participant->getId(), $request->request->get('_token'))) {
