@@ -46,7 +46,6 @@ class PointController extends AbstractController
             ];
         }
 
-// Tri du tableau $score par points dans l'ordre décroissant
         usort($score, function ($a, $b) {
             return $b['point'] - $a['point'];
         });
