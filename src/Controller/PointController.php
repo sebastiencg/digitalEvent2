@@ -46,10 +46,10 @@ class PointController extends AbstractController
     public function score(ParticipantOfDrawRepository $participantOfDrawRepository): Response
     {
         $lastParticipantOfDraw = $participantOfDrawRepository->findOneBy([], ['id' => 'DESC']);
-        dd($lastParticipantOfDraw->getParticipant()->getValues());
         $score = [];
 
         foreach ($lastParticipantOfDraw->getParticipant() as $participant) {
+            dd($participant);
             $score[] = [
                 'point' => $participant->getPoint(),
                 'participant' => [
