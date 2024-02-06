@@ -57,10 +57,15 @@ class PointController extends AbstractController
                 ],
             ];
         }
-        dd($score);
         usort($score, function ($a, $b) {
-            return $b['point'] - $a['point'];
+            // Assurez-vous que 'point' est une propriété numérique de l'objet Point
+            $pointA = $a['point']->getPoint();
+            $pointB = $b['point']->getPoint();
+
+            // Comparez les valeurs numériques
+            return $pointB - $pointA;
         });
+
 
         return $this->json($score, Response::HTTP_OK, [], ['groups' => 'game:read-one']);
 
