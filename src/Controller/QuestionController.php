@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Question;
+use App\Form\QuestionFileType;
 use App\Form\QuestionType;
 use App\Repository\QuestionRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,11 +23,22 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_question_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{formType}', name: 'app_question_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, string $formType): Response
     {
         $question = new Question();
-        $form = $this->createForm(QuestionType::class, $question);
+
+        switch ($formType) {
+            case 'no_file':
+                $form = $this->createForm(QuestionType::class, $question);
+                break;
+            case 'file':
+                $form = $this->createForm(QuestionFileType::class, $question);
+                break;
+            default:
+                throw $this->createNotFoundException('Invalid form type');
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -38,5 +38,8 @@
         Response
     </a>
 
-    <a href="{{ path('app_question_new') }}">Create new</a>
+    <a class="btn btn-warning" href="{{ path('app_question_new', {'formType': 'no_file'}) }}">Create new (Question)</a>
+
+    <a class="btn btn-success" href="{{ path('app_question_new', {'formType': 'file'}) }}">Create new (Question File)</a>
+
 {% endblock %}

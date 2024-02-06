@@ -42,6 +42,9 @@ class Question
     #[ORM\ManyToOne(inversedBy: 'question')]
     private ?Draw $draw = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $fileName = null;
+
     public function __construct()
     {
         $this->responses = new ArrayCollection();
@@ -168,6 +171,18 @@ class Question
     public function setDraw(?Draw $draw): static
     {
         $this->draw = $draw;
+
+        return $this;
+    }
+
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
+    }
+
+    public function setFileName(?string $fileName): static
+    {
+        $this->fileName = $fileName;
 
         return $this;
     }
