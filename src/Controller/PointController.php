@@ -49,7 +49,6 @@ class PointController extends AbstractController
         $score = [];
 
         foreach ($lastParticipantOfDraw->getParticipant() as $participant) {
-            dd($participant);
             $score[] = [
                 'point' => $participant->getPoint(),
                 'participant' => [
@@ -58,7 +57,7 @@ class PointController extends AbstractController
                 ],
             ];
         }
-
+        dd($score);
         usort($score, function ($a, $b) {
             return $b['point'] - $a['point'];
         });
