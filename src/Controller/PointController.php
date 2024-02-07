@@ -58,11 +58,9 @@ class PointController extends AbstractController
             ];
         }
         usort($score, function ($a, $b) {
-            // Assurez-vous que 'point' est une propriété numérique de l'objet Point
             $pointA = $a['point']->getPoint();
             $pointB = $b['point']->getPoint();
 
-            // Comparez les valeurs numériques
             return $pointB - $pointA;
         });
 

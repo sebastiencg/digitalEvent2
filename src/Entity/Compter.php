@@ -22,6 +22,9 @@ class Compter
     #[ORM\Column(nullable: true)]
     private ?bool $isExplicationVisible = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $numberForm = null;
+
 
     public function getId(): ?int
     {
@@ -60,6 +63,18 @@ class Compter
     public function setIsExplicationVisible(?bool $isExplicationVisible): static
     {
         $this->isExplicationVisible = $isExplicationVisible;
+
+        return $this;
+    }
+
+    public function getNumberForm(): ?int
+    {
+        return $this->numberForm;
+    }
+
+    public function setNumberForm(?int $numberForm): static
+    {
+        $this->numberForm = $numberForm;
 
         return $this;
     }
