@@ -103,7 +103,7 @@ class CompteurController extends AbstractController
         return $this->json($compter, Response::HTTP_OK);
     }
 
-    #[Route('/compteur/{compterId}/form/{formId}', name: 'app_participant_userOfGame', methods: ['GET', 'POST'])]
+    #[Route('/compteur/{compterId}/form/{formId}', name: 'app_participant_form_change', methods: ['GET', 'POST'])]
     public function formId(
         #[MapEntity(id: 'compterId')] Compter $compter,
         #[MapEntity(id: 'formId')] Draw $draw,
