@@ -42,6 +42,7 @@ class Question
     #[ORM\ManyToOne(inversedBy: 'question')]
     private ?Draw $draw = null;
 
+    #[Groups(['game:read-one'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $fileName = null;
 
